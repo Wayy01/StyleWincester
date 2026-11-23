@@ -1,0 +1,139 @@
+/*
+  Admin design layer. Unlayered on purpose: it overrides the site's Tailwind utilities inside `.admin` only.
+  Hierarchy, top to bottom:
+    .a-title  page title        · 30–36px / 650
+    .a-h2     section title     · 19px / 600
+    .a-h3     row / card title  · 16px / 600
+    body                         · 15px / 400, ink
+    .a-field  form label        · 13px / 550, ink-3
+    .label    meta line         · 12px / 500
+    .a-eyebrow section eyebrow  · 11px / 600 caps
+  Secondary text is darker than on the public site so it passes WCAG AA on the light surfaces.
+*/
+.admin {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --color-muted: #5b4f45;
+  --color-muted-2: #8a7e72;
+  --color-ink-3: #352c26;
+  --line: rgba(21, 17, 14, 0.09);
+  --line-strong: rgba(21, 17, 14, 0.18);
+  --canvas: #f2ede4;
+  --surface: #fffdf9;
+  --surface-2: #f8f4ed;
+  --ring: rgba(110, 27, 23, 0.14);
+
+  background: var(--canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Meta lines (dates, order, roles, slugs) keep their natural case: they often hold Russian or names. */
+.admin .label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  font-variation-settings: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Only true section eyebrows are set in capitals. */
+.admin .a-eyebrow {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.a-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+.a-h2 {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.a-h3 {
+  font-size: 1rem;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.a-stat {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.a-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  font-weight: 550;
+  color: var(--color-ink-3);
+}
+.a-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Surfaces */
+.a-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(21, 17, 14, 0.04);
+}
+.a-list {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(21, 17, 14, 0.04);
+  overflow: hidden;
+}
+.a-list > li {
+  padding-inline: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+.a-list > li:last-child {
+  border-bottom: 0;
+}
+.a-list > li:hover {
+  background: var(--surface-2);
+}
+@media (min-width: 640px) {
+  .a-list > li {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Native controls inherit the admin face and get a visible, consistent focus ring. */
+.admin :is(input, select, textarea, button) {
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+.admin :focus-visible {
+  outline: 2px solid var(--color-oxblood-2);
+  outline-offset: 2px;
+}
+.admin ::selection {
+  background: var(--color-oxblood);
+  color: var(--color-bone);
+}
